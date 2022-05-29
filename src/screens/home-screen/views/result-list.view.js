@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
-import {withNavigation} from 'react-navigation';
 import ResultsDetail from './results-detail.view';
+import {withNavigation} from 'react-navigation';
 import {
   View,
   StyleSheet,

@@ -10,7 +10,11 @@ const HomeScreen = () => {
   const [term, setTerm] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   const toastRef = useRef(null);
-  const getResults = async (searchTerm = 'space') => {
+  const getResults = async searchTerm => {
+    if (!searchTerm) {
+      return;
+    }
+
     setRefreshing(true);
 
     try {

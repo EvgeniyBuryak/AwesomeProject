@@ -7,7 +7,8 @@ const getListPixabay = async term => {
   //   API_KEY +
   //   '&q=' +
   //   encodeURIComponent('red roses');
-  const URL = `https://pixabay.com/api/?key=${API_KEY}&q=yellow+flowers&image_type=photo&pretty=true`;
+  const URL = `https://pixabay.com/api/?key=${API_KEY}&q=${term}&image_type=photo&pretty=true`;
+  // console.log("URL: ", URL);
 
   //   $.getJSON(URL, function(data){
   //     if (parseInt(data.totalHits) > 0)
