@@ -1,6 +1,8 @@
 import React, {useCallback} from 'react';
 import ResultsDetail from './results-detail.view';
 import {withNavigation} from 'react-navigation';
+import {useTodoStore} from '../../../ContextProvider/todoContext';
+import {Observer} from 'mobx-react';
 import {
   View,
   StyleSheet,
@@ -9,10 +11,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-const ResultsList = ({results, navigation, refreshing, onRefresh}) => {
+const ResultsList = ({navigation, refreshing, onRefresh}) => {
   //   const isExist = result => {
   //     return result ?? 'не установлено';
   //   };
+  const todoStore = useTodoStore();
+
   const keyExtractor = useCallback(item => item.id.toString(), []);
   const renderItem = useCallback(
     ({item}) => {
@@ -39,10 +43,11 @@ const ResultsList = ({results, navigation, refreshing, onRefresh}) => {
   //       </View>
   //     );
   //   }, []);
+  // return Observer(() => {
   return (
     <View>
       <FlatList
-        data={results}
+        data={todoStore.photoList}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
         refreshControl={
@@ -51,6 +56,7 @@ const ResultsList = ({results, navigation, refreshing, onRefresh}) => {
       />
     </View>
   );
+  // });
 };
 
 const styles = StyleSheet.create({

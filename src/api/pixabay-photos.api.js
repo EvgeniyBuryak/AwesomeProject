@@ -7,7 +7,8 @@ const getListPixabay = async term => {
   //   API_KEY +
   //   '&q=' +
   //   encodeURIComponent('red roses');
-  const URL = `https://pixabay.com/api/?key=${API_KEY}&q=${term}&image_type=photo&pretty=true`;
+  // const URL = `https://pixabay.com/api/?key=${API_KEY}&q=${term}&image_type=photo&pretty=true`;
+  const URL = `https://pixabay.com/api/?key=${API_KEY}&image_type=photo&pretty=true`;
   // console.log("URL: ", URL);
 
   //   $.getJSON(URL, function(data){
@@ -20,8 +21,9 @@ const getListPixabay = async term => {
     const response = await axios.get(URL);
 
     return response.data.hits;
-  } catch {
-    throw new Error('Error: Список картинок не грузиться!');
+  } catch (error) {
+    console.log('Error list api: Список картинок не грузиться!');
+    throw error;
   }
 };
 

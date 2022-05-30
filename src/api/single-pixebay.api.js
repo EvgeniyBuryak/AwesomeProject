@@ -17,8 +17,9 @@ const getSinglePixabay = async id => {
     const response = await axios.get(URL);
 
     return response.data.hits;
-  } catch {
-    throw new Error('Error: Список картинок не грузиться!');
+  } catch (error) {
+    console.log('Error single api: Одна картинок не грузиться!');
+    throw error;
   }
 };
 

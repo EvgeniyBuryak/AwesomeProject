@@ -1,10 +1,13 @@
 import React from 'react';
 import {ScrollView, Text, StyleSheet, Image} from 'react-native';
+import {Observer} from 'mobx-react';
 
 const ResultsDetail = ({item}) => {
   const isExist = result => {
     return result ?? 'не установлено';
   };
+
+  // return Observer(() => {
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>{item.user}</Text>
@@ -13,6 +16,7 @@ const ResultsDetail = ({item}) => {
       {/* <Text style={styles.rating}>Average Rating: { isExist(result.attributes.averageRating) }</Text> */}
     </ScrollView>
   );
+  // });
 };
 
 const styles = StyleSheet.create({
