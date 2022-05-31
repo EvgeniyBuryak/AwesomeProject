@@ -16,7 +16,7 @@ export const mainStore = () => {
 
     receivePhotos(payload) {
       //   console.log('mainStore user : ' + payload[1].user);
-      this.photoList = [...payload];
+      this.photoList = [...this.photoList, ...payload];
 
       //   for (let item of this.photos) {
       //     console.log(item);

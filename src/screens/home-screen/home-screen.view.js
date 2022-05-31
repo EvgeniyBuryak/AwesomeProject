@@ -5,12 +5,12 @@ import ResultsList from './views/result-list.view';
 import SearchBar from './views/search-bar.view';
 import {useTodoStore} from '../../ContextProvider/todoContext';
 import {Observer} from 'mobx-react';
-// import Toast from 'react-native-easy-toast';
+import Toast, {DURATION} from 'react-native-easy-toast';
 
 const HomeScreen = () => {
   const [term, setTerm] = useState('');
   const [refreshing, setRefreshing] = useState(false);
-  // const toastRef = useRef(null);
+  const toastRef = useRef(null);
 
   const todoStore = useTodoStore();
 
@@ -25,19 +25,18 @@ const HomeScreen = () => {
       // const result = await getListPixabay(searchTerm);
       const result = await getListPixabay();
 
-      todoStore.addPhoto('govno');
       todoStore.receivePhotos(result);
 
-      console.log('json : ' + JSON.stringify(todoStore));
+      // console.log('json : ' + JSON.stringify(todoStore));
 
-      for (let item of todoStore.photoList) {
-        console.log(`${item.id} : ${item.user}`);
-      }
+      // for (let item of todoStore.photoList) {
+      //   console.log(`${item.id} : ${item.user}`);
+      // }
 
-      todoStore.logStoreDetails();
+      // todoStore.logStoreDetails();
     } catch (error) {
-      // toastRef.current.show('Something wrong', 2000);
-      console.log('mainStore :' + error);
+      toastRef.current.show('Something wrong : ' + error, 5000); //DURATION.FOREVER);
+      // console.log('mainStore :' + error);
       throw error;
     } finally {
       setRefreshing(false);
@@ -71,7 +70,16 @@ const HomeScreen = () => {
               onTermChange={handleTermChange}
               onTermSubmit={handleTermSubmit}
             /> */}
-            {/* <Toast ref={toastRef} position="top" /> */}
+            <Toast
+              ref={toastRef}
+              style={styles.error_background}
+              position="top"
+              positionValue={250}
+              fadeInDuration={750}
+              fadeOutDuration={1500}
+              opacity={0.8}
+              textStyle={styles.error}
+            />
             {/* <Text style={styles.headerVacancy}>Animals:</Text> */}
             <ResultsList refreshing={refreshing} onRefresh={handleRefresh} />
           </View>
@@ -82,6 +90,13 @@ const HomeScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  error_background: {
+    backgroundColor: '#f2dcbf',
+  },
+  error: {
+    fontSize: 32,
+    color: 'black',
+  },
   container: {
     // flex: 1,
     backgroundColor: '#111',
