@@ -22,8 +22,7 @@ const HomeScreen = () => {
     setRefreshing(true);
 
     try {
-      // const result = await getListPixabay(searchTerm);
-      const result = await getListPixabay();
+      const result = await getListPixabay(searchTerm);
 
       todoStore.receivePhotos(result);
 
@@ -35,7 +34,7 @@ const HomeScreen = () => {
 
       // todoStore.logStoreDetails();
     } catch (error) {
-      toastRef.current.show('Something wrong : ' + error, 5000); //DURATION.FOREVER);
+      toastRef.current.show('Something wrong : ' + error, 10000); //DURATION.FOREVER);
       // console.log('mainStore :' + error);
       throw error;
     } finally {
@@ -47,14 +46,14 @@ const HomeScreen = () => {
     getResults(term);
   }, [term]);
 
-  // const handleTermChange = useCallback(newTerm => {
-  //   //console.log(newTerm);
-  //   setTerm(newTerm);
-  // }, []);
+  const handleTermChange = useCallback(newTerm => {
+    //console.log(newTerm);
+    setTerm(newTerm);
+  }, []);
 
-  // const handleTermSubmit = useCallback(() => {
-  //   getResults(term);
-  // }, [term]);
+  const handleTermSubmit = useCallback(() => {
+    getResults(term);
+  }, [term]);
 
   useEffect(() => {
     getResults();
@@ -65,11 +64,11 @@ const HomeScreen = () => {
       {() => {
         return (
           <View style={styles.container}>
-            {/* <SearchBar
+            <SearchBar
               term={term}
               onTermChange={handleTermChange}
               onTermSubmit={handleTermSubmit}
-            /> */}
+            />
             <Toast
               ref={toastRef}
               style={styles.error_background}

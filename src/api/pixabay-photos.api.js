@@ -1,14 +1,19 @@
 import axios from 'axios';
 
 const getListPixabay = async term => {
+  let url = null;
   const API_KEY = '27719451-323b893b9bedcb7dec90b1724';
   // const URL =
   //   'https://pixabay.com/api/?key=' +
   //   API_KEY +
   //   '&q=' +
   //   encodeURIComponent('red roses');
-  // const URL = `https://pixabay.com/api/?key=${API_KEY}&q=${term}&image_type=photo&pretty=true`;
-  const URL = `https://pixabay.com/api/?key=${API_KEY}&image_type=photo&pretty=true`;
+  if (!term) {
+    url = `https://pixabay.com/api/?key=${API_KEY}&image_type=photo&pretty=true`;
+  } else {
+    url = `https://pixabay.com/api/?key=${API_KEY}&q=${term}&image_type=photo&pretty=true`;
+  }
+
   // console.log("URL: ", URL);
 
   //   $.getJSON(URL, function(data){
@@ -18,11 +23,11 @@ const getListPixabay = async term => {
   //         console.log('No hits');
   //     });
   try {
-    const response = await axios.get(URL);
+    const response = await axios.get(url);
 
     return response.data.hits;
   } catch (error) {
-    console.log('Error list api: Список картинок не грузиться!');
+    console.log('Error pixabay-photos list api: ' + error);
     throw error;
   }
 };
