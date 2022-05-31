@@ -3,11 +3,7 @@ import axios from 'axios';
 const getListPixabay = async term => {
   let url = null;
   const API_KEY = '27719451-323b893b9bedcb7dec90b1724';
-  // const URL =
-  //   'https://pixabay.com/api/?key=' +
-  //   API_KEY +
-  //   '&q=' +
-  //   encodeURIComponent('red roses');
+
   if (!term) {
     url = `https://pixabay.com/api/?key=${API_KEY}&image_type=photo&pretty=true`;
   } else {

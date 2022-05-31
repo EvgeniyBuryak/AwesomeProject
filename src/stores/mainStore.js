@@ -4,6 +4,12 @@ export const mainStore = () => {
   return makeAutoObservable({
     photoList: [],
     isFetching: false,
+    singlePhoto: null,
+
+    changeSingle(search_id) {
+      const result = this.photoList.find(({id}) => id === search_id);
+      this.singlePhoto = result;
+    },
 
     receivePhotos(payload) {
       this.photoList = [...payload];

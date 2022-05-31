@@ -22,12 +22,16 @@ const ResultsList = ({navigation, refreshing, onRefresh}) => {
     ({item}) => {
       return (
         <TouchableOpacity
-          onPress={() => navigation.navigate('ResultsShow', {id: item.id})}>
+          onPress={() => {
+            todoStore.changeSingle(item.id);
+            navigation.navigate('ResultsShow', {id: item.id});
+          }}>
+          {/* onPress={() => todoStore.changeSingle(item.id)}> */}
           <ResultsDetail item={item} />
         </TouchableOpacity>
       );
     },
-    [navigation],
+    [navigation, todoStore],
   );
   //   const renderItem = useCallback(({item}) => {
   //     return (

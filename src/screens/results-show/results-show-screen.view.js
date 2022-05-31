@@ -1,23 +1,12 @@
-import React, {useCallback, useState, useEffect} from 'react';
+import React, {useCallback} from 'react';
 import {View, Text, StyleSheet, FlatList, Image, Button} from 'react-native';
-import {getSinglePixabay} from '../../api/single-pixebay.api';
-import TagsDetail from './tags-detail.view';
+import {useTodoStore} from '../../ContextProvider/todoContext';
 
-const ResultsShowScreen = ({navigation}) => {
-  const id = navigation.getParam('id');
-  const [results, setResults] = useState(null);
-
-  const isExist = result => {
-    return result ?? 'не установлено';
-  };
+const ResultsShowScreen = () => {
+  const todoStore = useTodoStore();
 
   const keyExtractor = useCallback(item => item.id.toString(), []);
   const renderItem = useCallback(({item}) => {
-    // const tags_array = item.tags.split(', ');
-    // console.log(`tags : ${Array.isArray(tags_array)}`);
-    // for (let tag of tags_array) {
-    //   console.log(tag);
-    // }
 
     return (
       <View>
@@ -28,7 +17,6 @@ const ResultsShowScreen = ({navigation}) => {
         {item.tags.split(', ').map(e => (
           <Button style={styles.title} title={e} />
         ))}
-        {/* <TagsDetail list={tags_array} /> */}
         {/* <Text style={styles.desciption}>
           Description: {isExist(item.attributes.description)}
         </Text> */}
@@ -36,23 +24,13 @@ const ResultsShowScreen = ({navigation}) => {
     );
   }, []);
 
-  const getResults = async () => {
-    const result = await getSinglePixabay(id);
-    setResults(result);
-  };
-
-  useEffect(() => {
-    getResults();
-  }, []);
-
   return (
     <View>
       <FlatList
-        data={results}
+        data={[todoStore.singlePhoto]}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
       />
-      {/* <TagsDetail /> */}
     </View>
   );
 };

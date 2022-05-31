@@ -6,6 +6,7 @@ import SearchBar from './views/search-bar.view';
 import {useTodoStore} from '../../ContextProvider/todoContext';
 import {Observer} from 'mobx-react';
 import Toast, {DURATION} from 'react-native-easy-toast';
+import {getData, storeData} from '../../stores';
 
 const HomeScreen = () => {
   const [term, setTerm] = useState('');
@@ -22,10 +23,16 @@ const HomeScreen = () => {
     setRefreshing(true);
 
     try {
-      const result = await getListPixabay(searchTerm);
+      const apiResult = await getListPixabay(searchTerm);
 
-      todoStore.receivePhotos(result);
-
+      if (!apiResult) {
+        const store = getData();
+        todoStore.receivePhotos(store);
+      } else {
+        storeData(apiResult);
+        todoStore.receivePhotos(apiResult);
+      }
+      // console.log(apiResult);
       // console.log('json : ' + JSON.stringify(todoStore));
 
       // for (let item of todoStore.photoList) {
@@ -34,7 +41,7 @@ const HomeScreen = () => {
 
       // todoStore.logStoreDetails();
     } catch (error) {
-      toastRef.current.show('Something wrong : ' + error, 10000); //DURATION.FOREVER);
+      toastRef.current.show('Something wrong : ' + error, 7000); //DURATION.FOREVER);
       // console.log('mainStore :' + error);
       throw error;
     } finally {
