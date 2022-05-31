@@ -3,13 +3,11 @@ import {StyleSheet, Text, View} from 'react-native';
 import {getListPixabay} from '../../api/pixabay-photos.api';
 import ResultsList from './views/result-list.view';
 import SearchBar from './views/search-bar.view';
-// import mainStore from '../../stores';
 import {useTodoStore} from '../../ContextProvider/todoContext';
 import {Observer} from 'mobx-react';
 // import Toast from 'react-native-easy-toast';
 
 const HomeScreen = () => {
-  const [results, setResults] = useState([]);
   const [term, setTerm] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   // const toastRef = useRef(null);
@@ -28,16 +26,15 @@ const HomeScreen = () => {
       const result = await getListPixabay();
 
       todoStore.addPhoto('govno');
-      todoStore.receivePhotos(results);
-      setResults(result);
+      todoStore.receivePhotos(result);
 
-      console.log('todoStore!!!');
       console.log('json : ' + JSON.stringify(todoStore));
+
       for (let item of todoStore.photoList) {
         console.log(`${item.id} : ${item.user}`);
       }
-      todoStore.logStoreDetails();
 
+      todoStore.logStoreDetails();
     } catch (error) {
       // toastRef.current.show('Something wrong', 2000);
       console.log('mainStore :' + error);
@@ -76,11 +73,7 @@ const HomeScreen = () => {
             /> */}
             {/* <Toast ref={toastRef} position="top" /> */}
             {/* <Text style={styles.headerVacancy}>Animals:</Text> */}
-            <ResultsList
-              // results={results}
-              refreshing={refreshing}
-              onRefresh={handleRefresh}
-            />
+            <ResultsList refreshing={refreshing} onRefresh={handleRefresh} />
           </View>
         );
       }}
