@@ -2,7 +2,13 @@ import React, {useCallback} from 'react';
 import ResultsDetail from './results-detail.view';
 import {withNavigation} from 'react-navigation';
 import {useTodoStore} from '../../../ContextProvider/todoContext';
-import {View, RefreshControl, FlatList, TouchableOpacity} from 'react-native';
+import {
+  View,
+  RefreshControl,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 
 const ResultsList = ({navigation, num, refreshing, onRefresh}) => {
   const todoStore = useTodoStore();
@@ -24,7 +30,7 @@ const ResultsList = ({navigation, num, refreshing, onRefresh}) => {
   );
 
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         data={todoStore.photoList}
         keyExtractor={keyExtractor}
@@ -39,5 +45,14 @@ const ResultsList = ({navigation, num, refreshing, onRefresh}) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 15,
+  },
+});
 
 export default withNavigation(ResultsList);

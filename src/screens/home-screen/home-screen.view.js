@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback, useRef} from 'react';
-import {StyleSheet, SafeAreaView, View, Switch} from 'react-native';
+import {StyleSheet, SafeAreaView, Text, View, Switch} from 'react-native';
 import {getList} from '../../api/pixabay-photos.api';
 import ResultsList from './views/result-list.view';
 import SearchBar from './views/search-bar.view';
@@ -47,7 +47,9 @@ const HomeScreen = () => {
 
   const handleTermSubmit = useCallback(() => fetchData(term), [term]);
 
-  useEffect(() => fetchData(), []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <Observer>
@@ -60,6 +62,7 @@ const HomeScreen = () => {
               onTermSubmit={handleTermSubmit}
             />
             <View style={styles.switch}>
+              <Text>Toggle</Text>
               <Switch
                 trackColor={{false: '#767577', true: '#81b0ff'}}
                 thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
@@ -98,7 +101,13 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   switch: {
+    display: 'flex',
+    justifyContent: 'space-between',
     marginLeft: 15,
+    borderWidth: 2,
+    borderColor: 'green',
+    padding: 5,
+    borderRadius: 5,
   },
   container: {
     flex: 1,
