@@ -5,6 +5,12 @@ export const mainStore = () => {
     photoList: [],
     isFetching: false,
     singlePhoto: null,
+    numToggle: 1,
+
+    toggleSwitch() {
+      const newLocal = this.numToggle === 1;
+      this.numToggle = newLocal ? 2 : 1;
+    },
 
     // сохраняем значения определенного автора фотографии
     saveFoundAuthor(search_id) {
