@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const getListPixabay = async term => {
+const getList = async term => {
   let url = null;
   const API_KEY = '27719451-323b893b9bedcb7dec90b1724';
 
@@ -28,4 +28,4 @@ const getListPixabay = async term => {
   }
 };
 
-export {getListPixabay};
+export {getList};

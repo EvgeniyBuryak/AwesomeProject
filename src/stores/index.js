@@ -15,9 +15,10 @@ export const storeData = async value => {
     const jsonValue = JSON.stringify(value);
     // console.log(jsonValue);
     await AsyncStorage.setItem('@storage_Key', jsonValue);
-  } catch (e) {
+  } catch (error) {
     // saving error
-    console.log('Something wrong with storeData : ' + e);
+    console.log('Something wrong with storeData : ' + error);
+    throw error;
   }
 };
 
@@ -26,8 +27,9 @@ export const getData = async () => {
     const jsonValue = await AsyncStorage.getItem('@storage_Key');
     // console.log(jsonValue);
     return jsonValue != null ? JSON.parse(jsonValue) : null;
-  } catch (e) {
+  } catch (error) {
     // error reading value
-    console.log('Something wrong with getData : ' + e);
+    console.log('Something wrong with getData : ' + error);
+    throw error;
   }
 };

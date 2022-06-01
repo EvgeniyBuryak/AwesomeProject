@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useCallback, useRef} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {getListPixabay} from '../../api/pixabay-photos.api';
+import {getList} from '../../api/pixabay-photos.api';
 import ResultsList from './views/result-list.view';
 import SearchBar from './views/search-bar.view';
 import {useTodoStore} from '../../ContextProvider/todoContext';
@@ -15,15 +15,12 @@ const HomeScreen = () => {
 
   const todoStore = useTodoStore();
 
-  const getResults = async searchTerm => {
-    // if (!searchTerm) {
-    //   return;
-    // }
+  const fetchData = async searchTerm => {
 
     setRefreshing(true);
 
     try {
-      const apiResult = await getListPixabay(searchTerm);
+      const apiResult = await getList(searchTerm);
 
       if (!apiResult) {
         const store = getData();
@@ -41,29 +38,28 @@ const HomeScreen = () => {
 
       // todoStore.logStoreDetails();
     } catch (error) {
-      toastRef.current.show('Something wrong : ' + error, 7000); //DURATION.FOREVER);
-      // console.log('mainStore :' + error);
+      toastRef.current.show('Something wrong : ' + error, 7000);
       throw error;
+
     } finally {
       setRefreshing(false);
     }
   };
 
   const handleRefresh = useCallback(() => {
-    getResults(term);
+    fetchData(term);
   }, [term]);
 
   const handleTermChange = useCallback(newTerm => {
-    //console.log(newTerm);
     setTerm(newTerm);
   }, []);
 
   const handleTermSubmit = useCallback(() => {
-    getResults(term);
+    fetchData(term);
   }, [term]);
 
   useEffect(() => {
-    getResults();
+    fetchData();
   }, []);
 
   return (
@@ -86,7 +82,6 @@ const HomeScreen = () => {
               opacity={0.8}
               textStyle={styles.error}
             />
-            {/* <Text style={styles.headerVacancy}>Animals:</Text> */}
             <ResultsList refreshing={refreshing} onRefresh={handleRefresh} />
           </View>
         );
@@ -108,11 +103,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#111',
     // alignItems: 'center',
     // justifyContent: 'center',
-  },
-  headerVacancy: {
-    top: 20,
-    margin: 15,
-    fontSize: 22,
   },
 });
 

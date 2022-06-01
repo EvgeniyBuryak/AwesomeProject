@@ -6,11 +6,13 @@ export const mainStore = () => {
     isFetching: false,
     singlePhoto: null,
 
-    changeSingle(search_id) {
+    // сохраняем значения определенного автора фотографии
+    saveFoundAuthor(search_id) {
       const result = this.photoList.find(({id}) => id === search_id);
       this.singlePhoto = result;
     },
 
+    // сохраняем подгруженных из стороннего сервиса авторов фотографий
     receivePhotos(payload) {
       this.photoList = [...payload];
       this.isFetching = true;

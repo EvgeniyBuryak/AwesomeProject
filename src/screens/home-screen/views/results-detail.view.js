@@ -3,17 +3,15 @@ import {ScrollView, Text, StyleSheet, Image} from 'react-native';
 import {Observer} from 'mobx-react';
 
 const ResultsDetail = ({item}) => {
-  const isExist = result => {
-    return result ?? 'не установлено';
-  };
+  // const isExist = result => {
+  //   return result ?? 'не установлено';
+  // };
 
   // return Observer(() => {
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>{item.user}</Text>
       <Image style={styles.image} source={{uri: item.userImageURL}} />
-      {/* <Text style={styles.description}>Description: { isExist(result.attributes.description).substring(0, 150) }</Text> */}
-      {/* <Text style={styles.rating}>Average Rating: { isExist(result.attributes.averageRating) }</Text> */}
     </ScrollView>
   );
   // });
@@ -25,12 +23,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     // color: 'black',
   },
-  description: {
-    fontWeight: 'bold',
-  },
-  rating: {
-    marginVertical: 5,
-  },
   container: {
     marginTop: 15,
     marginLeft: 15,
@@ -41,6 +33,11 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 5,
   },
+  // image: {
+  //   width: 250,
+  //   height: 360,
+  //   // borderRadius: 50,
+  // },
 });
 
 export default ResultsDetail;
