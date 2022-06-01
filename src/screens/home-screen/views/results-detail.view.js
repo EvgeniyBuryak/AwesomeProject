@@ -2,9 +2,13 @@ import React from 'react';
 import {ScrollView, Text, StyleSheet, Image, Dimensions} from 'react-native';
 
 const ResultsDetail = ({num, item}) => {
-  // const isExist = result => {
-  //   return result ?? 'не установлено';
-  // };
+
+  const checkImageExist = img => {
+    return ( // Заглушка, когда нету фото
+      img || 'https://cdn.pixabay.com/user/2022/05/25/18-12-48-180_250x250.jpeg'
+    );
+  };
+
   const screenWidth = Dimensions.get('window').width;
   const tileSize = screenWidth / num - styles.container.marginLeft * 1.8;
 
@@ -13,7 +17,7 @@ const ResultsDetail = ({num, item}) => {
       <Text style={styles.title}>{item.user}</Text>
       <Image
         style={{height: tileSize, width: tileSize}}
-        source={{uri: item.userImageURL}}
+        source={{uri: checkImageExist(item.userImageURL)}}
       />
     </ScrollView>
   );
@@ -23,7 +27,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    // color: 'black',
   },
   container: {
     marginTop: 15,
