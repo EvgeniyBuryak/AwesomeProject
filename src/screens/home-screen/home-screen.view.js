@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useCallback, useRef} from 'react';
 import {StyleSheet, SafeAreaView, Text, View, Switch} from 'react-native';
 import {getList} from '../../api/pixabay-photos.api';
+import {getListPhotos} from '../../api/picsum-photos.api';
 import ResultsList from './views/result-list.view';
 import SearchBar from './views/search-bar.view';
 import {useTodoStore} from '../../ContextProvider/todoContext';

@@ -1,10 +1,11 @@
 import React from 'react';
 import {ScrollView, Text, StyleSheet, Image, Dimensions} from 'react-native';
+import sum from '../../../js/sum.script';
 
 const ResultsDetail = ({num, item}) => {
-
+  console.log('Sum : ' + sum(3, 4));
   const checkImageExist = img => {
-    return ( // Заглушка, когда нету фото
+    return ( // Ставим заглушку, когда в источнике нету фотографии
       img || 'https://cdn.pixabay.com/user/2022/05/25/18-12-48-180_250x250.jpeg'
     );
   };
