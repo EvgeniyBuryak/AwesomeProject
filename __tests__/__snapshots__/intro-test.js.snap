@@ -32,7 +32,9 @@ exports[`renderer correctly 1`] = `
       }
     }
   >
-    This is a React Native snapshot test.
+    This is a 
+    React
+     Native snapshot test.
   </Text>
 </View>
 `;

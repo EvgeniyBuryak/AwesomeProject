@@ -1,12 +1,12 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
-const Intro = () => {
+const Intro = ({item}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.welcome}>Welcome to city 17!</Text>
       <Text style={styles.instructions}>
-        This is a React Native snapshot test.
+        This is a {item} Native snapshot test.
       </Text>
     </View>
   );
